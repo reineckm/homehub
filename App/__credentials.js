@@ -1,2 +1,0 @@
-Parse.initialize("ParseAppId", "ParseApiKey");
-    

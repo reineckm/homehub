@@ -1,1 +1,0 @@
-Parse.initialize("RksZQiXkgmk3uDMep7m8bpAiFvP7P1475jOvRxXo", "qVJGtYl5rOqNshRt0RqLB0IOtmjcRgnJeTglpGJ0");
