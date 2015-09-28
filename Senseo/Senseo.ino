@@ -13,7 +13,7 @@
  *   betätigen um die Maschine auszuschalten
  *
  * @author reineckm
- * @lastUpdate 09-15-2015
+ * @lastUpdate 09-28-2015
  */
 
 #include <SoftRcPulseOut.h>
@@ -44,38 +44,27 @@ void setup()
   ServoCoffe.detach();
 }
 
-// Prüfe auf High-Pegel am IN_PIN -> go()
+// Prüfe auf 100ms durchgaengig High-Pegel am IN_PIN -> go()
 int fade = 0;
 void loop()
 {
-  
   digitalWrite(LED_PIN, LOW);
-  if (digitalRead(IN_PIN) == HIGH) {
-    delay(50);
-    if (digitalRead(IN_PIN) == HIGH) {
-      delay(50);
-      if (digitalRead(IN_PIN) == HIGH) {
-        delay(50);
-        if (digitalRead(IN_PIN) == HIGH) {
-          delay(50);
-          if (digitalRead(IN_PIN) == HIGH) {
-            digitalWrite(LED_PIN, HIGH);
-            go();
-          }
-        }
-      }
+  int countHigh = 0;
+  bool start = false;
+  while (digitalRead(IN_PIN) == HIGH) {
+    countHigh++;
+    delay(10);
+    if (countHigh > 10) {
+      digitalWrite(LED_PIN, HIGH);
+      go();
+      break;
     }
   }
-  /**
-  pushPwr();
-  pushCoffe();
-  **/
 }
 
-// Wartet dur Millisekunden. Läßt in der Wartezeit die LED immer heller werden.
+// Wartet dur Millisekunden.
 void wait(long dur) {
   unsigned long start = millis();
-  unsigned long alter = start % 1000;
   while ((millis() - start) < dur) {
     SoftRcPulseOut::refresh();
   }
